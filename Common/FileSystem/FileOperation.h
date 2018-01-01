@@ -1,0 +1,2 @@
+
+char* ReadFile(char* path);
