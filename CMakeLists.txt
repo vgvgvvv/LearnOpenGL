@@ -1,6 +1,7 @@
 PROJECT("LearningOpenGL")
 
 cmake_minimum_required(VERSION 3.5)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 
 find_package(OpenGL REQUIRED)
 
@@ -40,7 +41,7 @@ target_link_libraries(HelloWindows
 )
 
 # turtorial 02
-add_executable(HelloTriangle turtorial01/HelloTriangle.cpp)
+add_executable(HelloTriangle turtorial02/HelloTriangle.cpp)
 target_link_libraries(HelloTriangle
 	${ALL_LIBS}
 )
