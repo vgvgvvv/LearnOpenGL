@@ -1,2 +1,2 @@
 
-char* ReadFile(char* path);
+const char* ReadFile(const char* path);

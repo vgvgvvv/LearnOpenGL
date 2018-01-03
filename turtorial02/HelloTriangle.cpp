@@ -7,6 +7,7 @@
 #include "glfw3.h"
 
 #include "glm/glm.hpp"
+#include "Common/FileSystem/FileOperation.h"
 
 // GLEW
 #define GLEW_STATIC
@@ -18,18 +19,18 @@ const GLuint WIDTH = 800;
 const GLuint HEIGHT = 600;
 
 // Shaders
-const GLchar* vertexShaderSource = "#version 330 core\n"
-    "layout (location = 0) in vec3 position;\n"
-    "void main()\n"
-    "{\n"
-    "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
-    "}\0";
-const GLchar* fragmentShaderSource = "#version 330 core\n"
-    "out vec4 color;\n"
-    "void main()\n"
-    "{\n"
-    "color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-    "}\n\0";
+// const GLchar* vertexShaderSource = "#version 330 core\n"
+//     "layout (location = 0) in vec3 position;\n"
+//     "void main()\n"
+//     "{\n"
+//     "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
+//     "}\0";
+// const GLchar* fragmentShaderSource = "#version 330 core\n"
+//     "out vec4 color;\n"
+//     "void main()\n"
+//     "{\n"
+//     "color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+//     "}\n\0";
 
 
 GLFWwindow* initGL(GLFWkeyfun callback){
@@ -79,6 +80,8 @@ GLuint buildShaderProgram(){
     //构建Shader
     //顶点Shader
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    const char* vertexShaderSource = ReadFile("vertexShader.glsl");
+    std::cout << vertexShaderSource << "\n" << std::endl;
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
     glCompileShader(vertexShader);
 
@@ -87,11 +90,15 @@ GLuint buildShaderProgram(){
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
     if(!success){
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;    
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl; 
+        printf(vertexShaderSource);   
     }
+    // delete[] vertexShaderSource;
 
     // 面片Shader
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    const char* fragmentShaderSource = fragmentShaderSource = ReadFile("fragmentShader.glsl");
+    std::cout << fragmentShaderSource << "\n" << std::endl;
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
@@ -99,7 +106,9 @@ GLuint buildShaderProgram(){
     {
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+        printf(fragmentShaderSource);
     }
+    // delete[] fragmentShaderSource;
 
     // 链接Shader
     GLuint shaderProgram = glCreateProgram();
@@ -159,7 +168,7 @@ int main(){
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//线框模式
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//线框模式
 
     //解绑
     // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind

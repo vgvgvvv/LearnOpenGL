@@ -28,6 +28,10 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
+file(GLOB_RECURSE all_script 
+	Common/FileSystem/*.c
+)
+
 # 测试GLFW
 add_executable(Test GLFWTest/Test.c)
 target_link_libraries(Test
@@ -43,5 +47,6 @@ target_link_libraries(HelloWindows
 # turtorial 02
 add_executable(HelloTriangle turtorial02/HelloTriangle.cpp)
 target_link_libraries(HelloTriangle
-	${ALL_LIBS}
+	${ALL_LIBS} 
+	${all_script} 
 )
