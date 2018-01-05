@@ -7,135 +7,28 @@
 #include "glfw3.h"
 
 #include "glm/glm.hpp"
-#include "Common/FileSystem/FileOperation.h"
+#include "OpenGLHelper.hpp"
 
 // GLEW
 #define GLEW_STATIC
 
+using namespace OpenGLHelper;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 const GLuint WIDTH = 800;
 const GLuint HEIGHT = 600;
 
-// Shaders
-// const GLchar* vertexShaderSource = "#version 330 core\n"
-//     "layout (location = 0) in vec3 position;\n"
-//     "void main()\n"
-//     "{\n"
-//     "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
-//     "}\0";
-// const GLchar* fragmentShaderSource = "#version 330 core\n"
-//     "out vec4 color;\n"
-//     "void main()\n"
-//     "{\n"
-//     "color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-//     "}\n\0";
-
-
-GLFWwindow* initGL(GLFWkeyfun callback){
-    #pragma region 初始化环境
-    if( !glfwInit() )
-	{
-		fprintf( stderr, "Failed to initialize GLFW\n" );
-		getchar();
-		return nullptr;
-	}
-    //基本设置
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Mac系统需要加上这一句
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-    //创建窗口
-    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
-    if( window == NULL ){
-		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
-		getchar();
-		glfwTerminate();
-		return nullptr;
-	}
-    glfwMakeContextCurrent(window);
-
-    //设置回调
-    glfwSetKeyCallback(window, callback);
-
-    //
-    glewExperimental = GL_TRUE;
-    //初始化glew
-    glewInit();
-
-    //定义viewport
-    int width, height;
-    glfwGetFramebufferSize(window, &width, &height);
-    glViewport(0, 0, width, height);
-
-    return window;
-#pragma endregion 初始化环境
-}
-
-GLuint buildShaderProgram(){
-    #pragma region 构建Shader
-    //构建Shader
-    //顶点Shader
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    const char* vertexShaderSource = ReadFile("vertexShader.glsl");
-    std::cout << vertexShaderSource << "\n" << std::endl;
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-
-    GLint success;
-    GLchar infoLog[512];
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if(!success){
-        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl; 
-        printf(vertexShaderSource);   
-    }
-    // delete[] vertexShaderSource;
-
-    // 面片Shader
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    const char* fragmentShaderSource = fragmentShaderSource = ReadFile("fragmentShader.glsl");
-    std::cout << fragmentShaderSource << "\n" << std::endl;
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-        printf(fragmentShaderSource);
-    }
-    // delete[] fragmentShaderSource;
-
-    // 链接Shader
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    // Check for linking errors
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if (!success) {
-        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-    }
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-    return shaderProgram;
-
-#pragma endregion 构建Shader
-}
 
 int main(){
     
-    GLFWwindow* window = initGL(key_callback);
-    if(window == nullptr)
+    OpenGLWindow window(800, 600);
+    window.Show();
+
+    if(!window.getWindow())
         return -1;
 
-    GLuint shaderProgram = buildShaderProgram();
+    GLuint shaderProgram = LoadProgram("vertexShader.glsl", "fragmentShader.glsl");
 
     float vertices[] = {
         0.5f, 0.5f, 0.0f,   // 右上角
@@ -177,7 +70,7 @@ int main(){
     glBindVertexArray(NULL);
 
     // Game loop
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(window.getWindow()))
     {
         // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
         glfwPollEvents();
@@ -195,7 +88,7 @@ int main(){
         glBindVertexArray(NULL);
 
         // Swap the screen buffers
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(window.getWindow());
     }
     // Properly de-allocate all resources once they've outlived their purpose
     glDeleteVertexArrays(1, &VAO);

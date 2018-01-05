@@ -8,16 +8,34 @@ find_package(OpenGL REQUIRED)
 add_subdirectory(libs)
 
 include_directories(
-	libs/glew/include/GL/ 
-	libs/glfw/include/GLFW/ 
-	libs/glm/ 
-	.
+		libs/glew/include/GL/
+		libs/glfw/include/GLFW/
+		libs/glm/
+		Common/
+		OpenGLHelper/
+		.
 )
 
+# opengl常用库
+file(GLOB_RECURSE opengl_helper_script
+		OpenGLHelper/*.cpp
+		OpenGLHelper/*.hpp
+		)
+
+file(GLOB_RECURSE common_script
+		Common/*.cpp
+		Common/*.hpp)
+
+set(All_Scripts
+		${common_script}
+		${opengl_helper_script}
+		)
+
+#所有库集合
 set(ALL_LIBS
-	${OPENGL_LIBRARY}
-	glfw
-	GLEW_1130
+		${OPENGL_LIBRARY}
+		glfw
+		GLEW_1130
 )
 
 add_definitions(
@@ -28,25 +46,29 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
-file(GLOB_RECURSE all_script 
-	Common/FileSystem/*.c
-)
+
 
 # 测试GLFW
-add_executable(Test GLFWTest/Test.c)
+add_executable(Test
+		GLFWTest/Test.c
+		)
 target_link_libraries(Test
 	${ALL_LIBS}
 )
 
 # tutorial 01
-add_executable(HelloWindows turtorial01/HelloWindows.cpp)
+add_executable(HelloWindows
+		turtorial01/HelloWindows.cpp
+		)
 target_link_libraries(HelloWindows
-	${ALL_LIBS}
-)
+		${ALL_LIBS}
+		)
 
-# turtorial 02
-add_executable(HelloTriangle turtorial02/HelloTriangle.cpp)
+## turtorial 02
+add_executable(HelloTriangle
+		turtorial02/HelloTriangle.cpp
+		${All_Scripts}
+		)
 target_link_libraries(HelloTriangle
-	${ALL_LIBS} 
-	${all_script} 
-)
+		${ALL_LIBS}
+		)
