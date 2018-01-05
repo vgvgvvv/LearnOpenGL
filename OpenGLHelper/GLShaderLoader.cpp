@@ -12,7 +12,7 @@ using namespace std;
 
 #include "glew.h"
 #include "glfw3.h"
-#include "shader.hpp"
+#include "GLShaderLoader.hpp"
 
 namespace OpenGLHelper{
     GLuint LoadProgram(const char* vertexFilePath, const char* fragmentFilePath);

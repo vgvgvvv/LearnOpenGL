@@ -72,3 +72,12 @@ add_executable(HelloTriangle
 target_link_libraries(HelloTriangle
 		${ALL_LIBS}
 		)
+
+## turtorial 03
+add_executable(HelloShader
+		turtorial03/HelloShader.cpp
+		${All_Scripts}
+		)
+target_link_libraries(HelloShader
+		${ALL_LIBS}
+		)

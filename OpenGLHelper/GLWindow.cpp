@@ -4,11 +4,11 @@
 
 #include <cstdio>
 #include <glew.h>
-#include "OpenGLWindow.hpp"
+#include "GLWindow.hpp"
 
 namespace OpenGLHelper{
 
-    OpenGLWindow::OpenGLWindow() :
+    GLWindow::GLWindow() :
             width(800),
             height(600),
             callback(nullptr)
@@ -16,13 +16,13 @@ namespace OpenGLHelper{
 
     }
 
-    OpenGLWindow::OpenGLWindow(int width, int height){
+    GLWindow::GLWindow(int width, int height){
         this->width = width;
         this->height = height;
     }
 
 
-    void OpenGLWindow::Show() {
+    void GLWindow::Show() {
 
         if( !glfwInit() )
         {
@@ -62,28 +62,32 @@ namespace OpenGLHelper{
 
     }
 
-    GLFWwindow *OpenGLWindow::getWindow() const {
+    GLFWwindow *GLWindow::getWindow() const {
         return window;
     }
 
-    int OpenGLWindow::getWidth() const {
+    int GLWindow::getWidth() const {
         return width;
     }
 
-    void OpenGLWindow::setWidth(int width) {
-        OpenGLWindow::width = width;
+    void GLWindow::setWidth(int width) {
+        GLWindow::width = width;
     }
 
-    int OpenGLWindow::getHeight() const {
+    int GLWindow::getHeight() const {
         return height;
     }
 
-    void OpenGLWindow::setHeight(int height) {
-        OpenGLWindow::height = height;
+    void GLWindow::setHeight(int height) {
+        GLWindow::height = height;
     }
 
-    void OpenGLWindow::setCallback(GLFWkeyfun const) {
-        OpenGLWindow::callback = callback;
+    void GLWindow::setCallback(GLFWkeyfun const) {
+        GLWindow::callback = callback;
+    }
+
+    bool GLWindow::ShouldClose() {
+        return glfwWindowShouldClose(window);
     }
 }
 

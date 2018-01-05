@@ -9,11 +9,11 @@
 
 namespace OpenGLHelper{
 
-    class OpenGLWindow {
+    class GLWindow {
     public:
 
-        OpenGLWindow();
-        OpenGLWindow(int width, int height);
+        GLWindow();
+        GLWindow(int width, int height);
 
         void Show();
 
@@ -28,6 +28,8 @@ namespace OpenGLHelper{
         void setCallback(GLFWkeyfun const);
 
         GLFWwindow *getWindow() const;
+
+        bool ShouldClose();
 
 
     private:

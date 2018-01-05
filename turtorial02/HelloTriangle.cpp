@@ -16,13 +16,11 @@ using namespace OpenGLHelper;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
-const GLuint WIDTH = 800;
-const GLuint HEIGHT = 600;
-
 
 int main(){
     
-    OpenGLWindow window(800, 600);
+    GLWindow window(800, 600);
+    window.setCallback(key_callback);
     window.Show();
 
     if(!window.getWindow())

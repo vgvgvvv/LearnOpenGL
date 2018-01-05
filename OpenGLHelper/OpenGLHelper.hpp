@@ -5,7 +5,9 @@
 #ifndef LEARNINGOPENGL_OPENGLHELPER_HPP
 #define LEARNINGOPENGL_OPENGLHELPER_HPP
 
-#include "shader.hpp";
-#include "OpenGLWindow.hpp";
+#include "GLShaderLoader.hpp";
+#include "GLWindow.hpp";
+#include "GLShader.hpp"
+
 
 #endif //LEARNINGOPENGL_OPENGLHELPER_HPP
