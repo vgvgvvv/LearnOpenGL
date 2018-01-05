@@ -65,7 +65,6 @@ int main(){
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window.getWindow());
-        glfwPollEvents();
     }
 
     // optional: de-allocate all resources once they've outlived their purpose:
