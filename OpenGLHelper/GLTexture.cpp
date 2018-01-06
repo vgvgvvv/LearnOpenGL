@@ -5,7 +5,7 @@
 #include <iostream>
 #include "GLTexture.hpp"
 
-namespace OpenGLHelper{
+namespace ReOpenGL{
 
     GLTexture::GLTexture(const char *texturePath) :
         texID(0),

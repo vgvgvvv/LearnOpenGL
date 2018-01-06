@@ -6,7 +6,7 @@
 #include "glfw3.h"
 #include "OpenGLHelper.hpp"
 
-using namespace OpenGLHelper;
+using namespace ReOpenGL;
 
 int main(){
 

@@ -9,7 +9,7 @@
 #include "glfw3.h"
 #include "stb_image.h"
 
-namespace OpenGLHelper{
+namespace ReOpenGL{
 
     enum WrapType{
 

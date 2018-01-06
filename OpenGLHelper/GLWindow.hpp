@@ -7,7 +7,7 @@
 
 #include <glfw3.h>
 
-namespace OpenGLHelper{
+namespace ReOpenGL{
 
     class GLWindow {
     public:

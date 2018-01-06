@@ -8,7 +8,7 @@
 #include "GLShaderLoader.hpp"
 
 
-namespace OpenGLHelper{
+namespace ReOpenGL{
 
     GLShader::GLShader(const char *vertexShaderPath, const char *fragmentShaderPath) {
         this->programID = LoadProgram(vertexShaderPath, fragmentShaderPath);

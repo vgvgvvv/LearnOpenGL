@@ -5,7 +5,7 @@
 #ifndef LEARNINGOPENGL_SHADER_HPP_H
 #define LEARNINGOPENGL_SHADER_HPP_H
 
-namespace OpenGLHelper{
+namespace ReOpenGL{
 
     GLuint LoadProgram(const char* vertexFilePath, const char* fragmentFilePath);
     GLuint LoadProgram(const GLuint vertexShaderID, const GLuint fragmentShaderID);

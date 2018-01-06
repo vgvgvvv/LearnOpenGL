@@ -14,7 +14,7 @@ using namespace std;
 #include "glfw3.h"
 #include "GLShaderLoader.hpp"
 
-namespace OpenGLHelper{
+namespace ReOpenGL{
     GLuint LoadProgram(const char* vertexFilePath, const char* fragmentFilePath);
     GLuint LoadProgram(const GLuint vertexShaderID, const GLuint fragmentShaderID);
     GLuint LoadShader(const char* shaderPath, const GLenum shaderType);

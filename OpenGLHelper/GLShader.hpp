@@ -7,7 +7,7 @@
 
 #include <string>
 
-namespace OpenGLHelper{
+namespace ReOpenGL{
 
     class GLShader {
     public:

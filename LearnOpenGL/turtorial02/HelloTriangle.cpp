@@ -12,7 +12,7 @@
 // GLEW
 #define GLEW_STATIC
 
-using namespace OpenGLHelper;
+using namespace ReOpenGL;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 

@@ -4,7 +4,7 @@
 
 #include "OpenGLAllInOne.hpp"
 
-using namespace OpenGLHelper;
+using namespace ReOpenGL;
 
 int main(){
 

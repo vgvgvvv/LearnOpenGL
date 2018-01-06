@@ -6,7 +6,7 @@
 #include <glew.h>
 #include "GLWindow.hpp"
 
-namespace OpenGLHelper{
+namespace ReOpenGL{
 
     GLWindow::GLWindow() :
             width(800),
