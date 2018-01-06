@@ -11,9 +11,9 @@ namespace OpenGLHelper{
     GLWindow::GLWindow() :
             width(800),
             height(600),
-            callback(nullptr)
+            keyCallback(nullptr),
+            framebufferSizeCallback(nullptr)
     {
-
     }
 
     GLWindow::GLWindow(int width, int height){
@@ -47,8 +47,14 @@ namespace OpenGLHelper{
         glfwMakeContextCurrent(window);
 
         //设置回调
-        if(callback)
-            glfwSetKeyCallback(window, callback);
+        if(!keyCallback)
+            keyCallback = GLWindow::DefaultKeyCallback;
+        glfwSetKeyCallback(window, keyCallback);
+
+        if(!framebufferSizeCallback)
+            framebufferSizeCallback = GLWindow::DefaultFramebufferSizeCallback;
+        glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
+
 
         //
         glewExperimental = GL_TRUE;
@@ -82,12 +88,20 @@ namespace OpenGLHelper{
         GLWindow::height = height;
     }
 
-    void GLWindow::setCallback(GLFWkeyfun const) {
-        GLWindow::callback = callback;
+    void GLWindow::setInputCallback(GLFWkeyfun inputCallback) {
+        this->keyCallback = inputCallback;
+    }
+
+    void GLWindow::setFramebufferSizeCallback(GLFWframebuffersizefun framebufferSizeCallback) {
+        this->framebufferSizeCallback = framebufferSizeCallback;
     }
 
     bool GLWindow::ShouldClose() {
-        return glfwWindowShouldClose(window);
+        return (bool)glfwWindowShouldClose(window);
     }
+
+
+
+
 }
 

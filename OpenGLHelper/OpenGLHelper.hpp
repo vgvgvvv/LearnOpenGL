@@ -8,6 +8,7 @@
 #include "GLShaderLoader.hpp";
 #include "GLWindow.hpp";
 #include "GLShader.hpp"
+#include "GLTexture.hpp"
 
 
 #endif //LEARNINGOPENGL_OPENGLHELPER_HPP

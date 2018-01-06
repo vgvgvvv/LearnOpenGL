@@ -20,7 +20,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 int main(){
     
     GLWindow window(800, 600);
-    window.setCallback(key_callback);
+    window.setInputCallback(key_callback);
     window.Show();
 
     if(!window.getWindow())

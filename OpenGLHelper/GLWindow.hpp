@@ -25,17 +25,34 @@ namespace OpenGLHelper{
 
         void setHeight(int height);
 
-        void setCallback(GLFWkeyfun const);
+        void setInputCallback(GLFWkeyfun const);
+
+        void setFramebufferSizeCallback(GLFWframebuffersizefun const);
 
         GLFWwindow *getWindow() const;
 
         bool ShouldClose();
 
+        static void DefaultProcessInput(GLFWwindow *window) {
+            if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+                glfwSetWindowShouldClose(window, true);
+        }
+
+        static void DefaultFramebufferSizeCallback(GLFWwindow *window, int width, int height) {
+            glViewport(0, 0, width, height);
+        }
+
+        static void DefaultKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode) {
+            if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+                glfwSetWindowShouldClose(window, GL_TRUE);
+        }
 
     private:
+
         int width;
         int height;
-        GLFWkeyfun callback;
+        GLFWkeyfun keyCallback;
+        GLFWframebuffersizefun framebufferSizeCallback;
         GLFWwindow* window;
     };
 

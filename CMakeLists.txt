@@ -11,6 +11,7 @@ include_directories(
 		libs/glew/include/GL/
 		libs/glfw/include/GLFW/
 		libs/glm/
+		libs/stb/
 		Common/
 		OpenGLHelper/
 		.
@@ -34,8 +35,10 @@ set(All_Scripts
 #所有库集合
 set(ALL_LIBS
 		${OPENGL_LIBRARY}
+		${STB}
 		glfw
 		GLEW_1130
+		STB
 )
 
 add_definitions(
@@ -56,28 +59,37 @@ target_link_libraries(Test
 	${ALL_LIBS}
 )
 
-# tutorial 01
+# tutorial 01 窗口
 add_executable(HelloWindows
-		turtorial01/HelloWindows.cpp
+		LearnOpenGL/turtorial01/HelloWindows.cpp
 		)
 target_link_libraries(HelloWindows
 		${ALL_LIBS}
 		)
 
-## turtorial 02
+## turtorial 02 三角面片
 add_executable(HelloTriangle
-		turtorial02/HelloTriangle.cpp
+		LearnOpenGL/turtorial02/HelloTriangle.cpp
 		${All_Scripts}
 		)
 target_link_libraries(HelloTriangle
 		${ALL_LIBS}
 		)
 
-## turtorial 03
+## turtorial 03 着色器
 add_executable(HelloShader
-		turtorial03/HelloShader.cpp
+		LearnOpenGL/turtorial03/HelloShader.cpp
 		${All_Scripts}
 		)
 target_link_libraries(HelloShader
 		${ALL_LIBS}
 		)
+
+# turtorial 04 纹理
+add_executable(HelloTexture
+		LearnOpenGL/turtorial04/HelloTexture.cpp
+		${All_Scripts}
+		)
+target_link_libraries(HelloTexture
+		${ALL_LIBS}
+)
