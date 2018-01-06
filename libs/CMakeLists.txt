@@ -54,6 +54,13 @@ target_link_libraries(GLEW_1130
 		${EXTRA_LIBS}
 		)
 
+### GLM ###
+add_subdirectory(glm)
+set(OPENGL_LIBRARY
+        ${OPENGL_LIBRARY}
+        ${glm}
+        )
+
 ### STB ###
 set(STB_SOURCE
         stb/stb_image.cpp
