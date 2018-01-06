@@ -8,6 +8,7 @@
 #include "GLShader.hpp"
 
 namespace ReOpenGL{
+    //TODO 封装Matrial！！！
     class GLMatrial {
     public:
 

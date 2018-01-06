@@ -14,6 +14,7 @@ include_directories(
 		libs/stb/
 		Common/
 		OpenGLHelper/
+		GameSystem/
 		.
 )
 
@@ -23,13 +24,20 @@ file(GLOB_RECURSE opengl_helper_script
 		OpenGLHelper/*.hpp
 		)
 
+#通用C++组件
 file(GLOB_RECURSE common_script
 		Common/*.cpp
 		Common/*.hpp)
 
+#游戏引擎底层
+file(GLOB_RECURSE game_system_script
+		GameSystem/*.cpp
+		GameSystem/*.hpp)
+
 set(All_Scripts
 		${common_script}
 		${opengl_helper_script}
+		${game_system_script}
 		)
 
 #所有库集合

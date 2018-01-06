@@ -10,6 +10,7 @@
 #include "GLShader.hpp"
 #include "GLTexture.hpp"
 #include "GLMesh.hpp"
+#include "MeshRenderer.hpp"
 #include "GLMatrial.hpp"
 
 #endif //LEARNINGOPENGL_OPENGLHELPER_HPP
