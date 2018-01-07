@@ -69,7 +69,7 @@ target_link_libraries(Test
 
 # tutorial 01 窗口
 add_executable(HelloWindows
-		LearnOpenGL/turtorial01/HelloWindows.cpp
+		"LearnOpenGL/01 Primer/turtorial01/HelloWindows.cpp"
 		)
 target_link_libraries(HelloWindows
 		${ALL_LIBS}
@@ -77,7 +77,7 @@ target_link_libraries(HelloWindows
 
 ## turtorial 02 三角面片
 add_executable(HelloTriangle
-		LearnOpenGL/turtorial02/HelloTriangle.cpp
+		"LearnOpenGL/01 Primer/turtorial02/HelloTriangle.cpp"
 		${All_Scripts}
 		)
 target_link_libraries(HelloTriangle
@@ -86,7 +86,7 @@ target_link_libraries(HelloTriangle
 
 ## turtorial 03 着色器
 add_executable(HelloShader
-		LearnOpenGL/turtorial03/HelloShader.cpp
+		"LearnOpenGL/01 Primer/turtorial03/HelloShader.cpp"
 		${All_Scripts}
 		)
 target_link_libraries(HelloShader
@@ -95,7 +95,7 @@ target_link_libraries(HelloShader
 
 # turtorial 04 纹理
 add_executable(HelloTexture
-		LearnOpenGL/turtorial04/HelloTexture.cpp
+		"LearnOpenGL/01 Primer/turtorial04/HelloTexture.cpp"
 		${All_Scripts}
 		)
 target_link_libraries(HelloTexture
@@ -104,7 +104,7 @@ target_link_libraries(HelloTexture
 
 #turtorial 05 变换
 add_executable(HelloTransform
-		LearnOpenGL/turtorial05/HelloTransform.cpp
+		"LearnOpenGL/01 Primer/turtorial05/HelloTransform.cpp"
 		${All_Scripts}
 		)
 target_link_libraries(HelloTransform
@@ -113,9 +113,18 @@ target_link_libraries(HelloTransform
 
 #turtorial 06 坐标系
 add_executable(HelloCoordinate
-		LearnOpenGL/turtorial06/HelloCoordinate.cpp
+		"LearnOpenGL/01 Primer/turtorial06/HelloCoordinate.cpp"
 		${All_Scripts}
 		)
 target_link_libraries(HelloCoordinate
+		${ALL_LIBS}
+		)
+
+#turtorial 07 摄像机
+add_executable(HelloCamera
+		"LearnOpenGL/01 Primer/turtorial07/HelloCamera.cpp"
+		${All_Scripts}
+		)
+target_link_libraries(HelloCamera
 		${ALL_LIBS}
 		)
