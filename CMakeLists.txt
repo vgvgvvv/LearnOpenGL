@@ -101,3 +101,21 @@ add_executable(HelloTexture
 target_link_libraries(HelloTexture
 		${ALL_LIBS}
 )
+
+#turtorial 05 变换
+add_executable(HelloTransform
+		LearnOpenGL/turtorial05/HelloTransform.cpp
+		${All_Scripts}
+		)
+target_link_libraries(HelloTransform
+		${ALL_LIBS}
+		)
+
+#turtorial 06 坐标系
+add_executable(HelloCoordinate
+		LearnOpenGL/turtorial06/HelloCoordinate.cpp
+		${All_Scripts}
+		)
+target_link_libraries(HelloCoordinate
+		${ALL_LIBS}
+		)

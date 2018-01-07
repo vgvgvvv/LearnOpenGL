@@ -1,5 +1,5 @@
 //
-// Created by 董宸 on 06/01/2018.
+// Created by 董宸 on 07/01/2018.
 //
 
 #include "OpenGLAllInOne.hpp"
@@ -16,6 +16,7 @@ int main(){
     GLTexture texture("../Resources/Images/timg.jpeg");
     texture.Build();
 
+
     GLfloat vertices[] = {
             // positions          // colors           // texture coords
             0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
@@ -29,35 +30,16 @@ int main(){
             1, 2, 3  // second triangle
     };
 
-    unsigned int VBO, VAO, EBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+    GLMesh mesh(vertices, 4, indices, 2);
+    mesh.AddVertexProperty(3, "aPos", GL_FLOAT, GL_FALSE);
+    mesh.AddVertexProperty(3, "aColor", GL_FLOAT, GL_FALSE);
+    mesh.AddVertexProperty(2, "aTexCoord", GL_FLOAT, GL_FALSE);
+    mesh.Build();
 
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-    // texture coord attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
 
     shader.Use();
     glUniform1i(glGetUniformLocation(shader.GetProgramID(), "texture1"), 0);
 
-
-    // render loop
-    // -----------
     while (!window.ShouldClose())
     {
         // input
@@ -66,15 +48,27 @@ int main(){
 
         // render
         // ------
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        texture.Use(GL_TEXTURE0);
+        // bind textures on corresponding texture units
 
-        // render container
+        texture.Use(GL_TEXTURE0);
         shader.Use();
-        glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+        // create transformations
+        glm::mat4 model;
+        glm::mat4 view;
+        glm::mat4 projection;
+        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        projection = glm::perspective(glm::radians(-45.0f), (float)window.getWidth() / (float)window.getHeight(), 0.1f, 100.0f);
+        shader.SetMat4("view", view);
+        shader.SetMat4("model", model);
+        shader.SetMat4("projection", projection);
+
+        mesh.Render(GL_TRIANGLES);
+
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -82,14 +76,10 @@ int main(){
         glfwPollEvents();
     }
 
-    // optional: de-allocate all resources once they've outlived their purpose:
-    // ------------------------------------------------------------------------
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
-
+    mesh.Uninit();
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwTerminate();
     return 0;
+
 }

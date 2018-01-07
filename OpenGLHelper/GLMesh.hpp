@@ -5,17 +5,53 @@
 #ifndef LEARNINGOPENGL_GLMESH_HPP
 #define LEARNINGOPENGL_GLMESH_HPP
 
-#include "OpenGLAllInOne.hpp"
+#include "glew.h"
+#include "glfw3.h"
+#include "glm/glm.hpp"
+#include <vector>
+#include <string>
 
 namespace ReOpenGL{
 
-    //TODO 封装Mesh！！！
+    struct GLVertexAttribute{
+        std::string name;//属性名
+        GLenum size;//属性尺寸
+        GLenum type;//属性类型
+        GLboolean normalized;//是否单位化
+
+    };
+
     class GLMesh {
     public:
-        GLMesh(GLfloat vertices[], GLuint indices[]);
+        /**
+         * 创建Mesh
+         * @param vertices 顶点数组
+         * @param vertexNumber 到底多多少个顶点
+         * @param indices indice数组
+         * @param indicesNumber indice的数量
+         */
+        GLMesh(GLfloat* vertices, GLint vertexNumber, GLuint indices[], GLint indicesNumber);
         ~GLMesh();
 
-        void Render();
+        /**
+         * 构建Mesh
+         */
+        void Build();
+        void Uninit();
+
+        /**
+         * 添加顶点属性
+         * @param name 属性名
+         * @param size 大小，包含几个数据
+         * @param type 数据类型
+         * @param normalized 是否单位化
+         */
+        void AddVertexProperty(int size, std::string name, GLenum type, GLboolean normalized);
+        /**
+         * 用何种方式渲染，例如GL_TRIANGES
+         * @param renderType
+         */
+        void Render(GLenum renderType);
 
         GLuint getVAO_ID() const;
 
@@ -29,10 +65,16 @@ namespace ReOpenGL{
         GLuint VBO_ID;
         GLuint EBO_ID;
 
-        GLfloat vertices[];
-        GLuint indices[];
+        GLfloat* vertices;
+        GLint vertexNumber;
+        GLint vertexSize;
+
+        GLuint* indices;
+        GLint indicesNumber;
 
         GLenum drawType;
+
+        std::vector<GLVertexAttribute> vertexAttrVec;
     };
 }
 

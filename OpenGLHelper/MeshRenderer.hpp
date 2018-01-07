@@ -6,10 +6,17 @@
 #define LEARNINGOPENGL_MESHRENDERER_HPP
 
 
+#include "GLMesh.hpp"
+#include "GLShader.hpp"
+
 namespace ReOpenGL{
     //TODO 封装渲染器
     class MeshRenderer {
-
+    public:
+        void Render();
+    private:
+        GLMesh mesh;
+        GLShader shader;
     };
 }
 

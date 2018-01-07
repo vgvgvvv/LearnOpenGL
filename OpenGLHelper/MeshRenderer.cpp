@@ -3,3 +3,11 @@
 //
 
 #include "MeshRenderer.hpp"
+
+namespace ReOpenGL{
+
+    void MeshRenderer::Render() {
+
+    }
+
+}
