@@ -7,9 +7,28 @@
 #ifndef LEARNINGOPENGL_WORLD_HPP
 #define LEARNINGOPENGL_WORLD_HPP
 
-namespace ReEngine{
-    class World {
+#include <vector>
+#include <Utility/Singleton.hpp>
+#include "Systems/System.hpp"
+#include "GameObjects/GameObject.hpp"
+#include "Systems/RenderSystem/RenderSystem.hpp"
 
+namespace ReEngine{
+    class World : public Singleton<World>{
+    public:
+        World();
+        ~World();
+        bool Init();
+        void Run();
+        void Update();
+        void Uninit();
+        bool ShouldQuit();
+    private:
+        std::vector<System*> systemVector;
+        std::vector<GameObject> gameObjectPool;
+
+    private:
+        RenderSystem* renderSystem;
     };
 }
 

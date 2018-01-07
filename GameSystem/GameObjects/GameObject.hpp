@@ -10,7 +10,8 @@
 
 namespace ReEngine{
     class GameObject {
-
+    public:
+    private:
     };
 }
 

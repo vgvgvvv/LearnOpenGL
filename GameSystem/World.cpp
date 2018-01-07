@@ -2,4 +2,75 @@
 // Created by 董宸 on 07/01/2018.
 //
 
+#include <thread>
+#include <Systems/RenderSystem/RenderSystem.hpp>
+#include "Utility/Utility.hpp"
 #include "World.hpp"
+#include "Systems/RenderSystem/OpenGLRenderSystem.hpp"
+#include "Utility/ObjectPool.hpp"
+#include "unistd.h"
+
+namespace ReEngine{
+
+    World::World() {
+        renderSystem = NEW_OBJECT(OpenGLRenderSystem);
+        systemVector.push_back(renderSystem);
+    }
+
+    World::~World() {
+        DELETE_OBJECT(renderSystem);
+    }
+
+    bool World::Init() {
+
+        for(auto system : systemVector){
+            if(!system->Init()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void World::Run() {
+        if(!this->Init()){
+            return;
+        }
+
+        long lastTime = 0L;
+        long curTime = 0L;
+
+        while(!ShouldQuit()){
+            lastTime = Time::GetCurrentTime();
+
+            //逻辑部分更新
+            this->Update();
+
+            curTime = Time::GetCurrentTime();
+            if (curTime - lastTime < Time::GetDelayTime())
+            {
+                std::this_thread::sleep_for(std::chrono::nanoseconds((Time::GetDelayTime() - curTime + lastTime) * 1000));
+            }
+        }
+        this->Uninit();
+        printf("Bye");
+    }
+
+    void World::Update() {
+        if(systemVector.size() == 0)
+            return;
+        for(auto system : systemVector){
+            system->Update();
+        }
+    }
+
+    void World::Uninit() {
+        for(auto system : systemVector){
+            system->Uninit();
+        }
+    }
+
+    bool World::ShouldQuit() {
+        return false;
+    }
+
+}

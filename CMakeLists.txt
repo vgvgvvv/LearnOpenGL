@@ -67,6 +67,15 @@ target_link_libraries(Test
 	${ALL_LIBS}
 )
 
+# 测试ReEngine
+add_executable(ReEngine
+		ReEngineMain.cpp
+		${All_Scripts}
+)
+target_link_libraries(ReEngine
+		${ALL_LIBS}
+		)
+
 # tutorial 01 窗口
 add_executable(HelloWindows
 		"LearnOpenGL/01 Primer/turtorial01/HelloWindows.cpp"
