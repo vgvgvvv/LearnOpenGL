@@ -26,7 +26,9 @@ namespace ReOpenGL{
     void GLMesh::Build() {
         glGenVertexArrays(1, &VAO_ID);
         glGenBuffers(1, &VBO_ID);
-        glGenBuffers(1, &EBO_ID);
+        if(indicesNumber != 0 && indices != nullptr){
+            glGenBuffers(1, &EBO_ID);
+        }
 
         glBindVertexArray(VAO_ID);
 
@@ -38,12 +40,12 @@ namespace ReOpenGL{
 
         glBindBuffer(GL_ARRAY_BUFFER, VBO_ID);
         glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vertexNumber * vertexSize, vertices, drawType);
-
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO_ID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indicesNumber * 3, indices, drawType);
-
+        if(indicesNumber != 0 && indices != nullptr) {
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO_ID);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indicesNumber * 3, indices, drawType);
+        }
         //添加属性
-        int index = 0;
+        GLuint index = 0;
         int offset = 0;
         int typeSize = sizeof(GLfloat);
         for(auto attr : vertexAttrVec){
@@ -63,7 +65,7 @@ namespace ReOpenGL{
         glDeleteBuffers(1, &EBO_ID);
     }
 
-    void GLMesh::AddVertexProperty(int size, std::string name, GLenum type, GLboolean normalized) {
+    void GLMesh::AddVertexProperty(GLint size, std::string name, GLenum type, GLboolean normalized) {
 
         GLVertexAttribute attribute;
         attribute.name = name;
@@ -73,10 +75,13 @@ namespace ReOpenGL{
         vertexAttrVec.push_back(attribute);
     }
 
-    void GLMesh::Render(GLenum renderType) {
+    void GLMesh::Render(GLenum renderType, GLboolean drawElement) {
         glBindVertexArray(VAO_ID);
-        glDrawElements(renderType, indicesNumber * 3, GL_UNSIGNED_INT, 0);
-
+        if(drawElement && indicesNumber != 0 && indices != nullptr){
+            glDrawElements(renderType, indicesNumber * 3, GL_UNSIGNED_INT, nullptr);
+        }else{
+            glDrawArrays(renderType, 0, vertexNumber);
+        }
     }
 
     GLuint GLMesh::getVAO_ID() const {

@@ -15,7 +15,7 @@ namespace ReOpenGL{
 
     struct GLVertexAttribute{
         std::string name;//属性名
-        GLenum size;//属性尺寸
+        GLint size;//属性尺寸
         GLenum type;//属性类型
         GLboolean normalized;//是否单位化
 
@@ -46,12 +46,12 @@ namespace ReOpenGL{
          * @param type 数据类型
          * @param normalized 是否单位化
          */
-        void AddVertexProperty(int size, std::string name, GLenum type, GLboolean normalized);
+        void AddVertexProperty(GLint size, std::string name, GLenum type, GLboolean normalized);
         /**
          * 用何种方式渲染，例如GL_TRIANGES
          * @param renderType
          */
-        void Render(GLenum renderType);
+        void Render(GLenum renderType, GLboolean drawElement = GL_TRUE);
 
         GLuint getVAO_ID() const;
 
