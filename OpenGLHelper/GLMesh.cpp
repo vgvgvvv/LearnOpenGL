@@ -55,8 +55,8 @@ namespace ReOpenGL{
             offset += attr.size * typeSize;
         }
         //解绑
-        glBindBuffer(GL_ARRAY_BUFFER, NULL);
-        glBindVertexArray(NULL);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
     }
 
     void GLMesh::Uninit() {

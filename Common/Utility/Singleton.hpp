@@ -24,7 +24,7 @@ protected:
     virtual ~Singleton() { }
 
 private:
-    inline static T * m_instance = nullptr;
+    static T * m_instance;
 
     class MemGuard {
     public:
@@ -34,5 +34,8 @@ private:
         }
     };
 };
+
+template < typename T >
+T* Singleton<T>::m_instance = nullptr;
 
 #endif //LEARNINGOPENGL_SINGLETON_HPP

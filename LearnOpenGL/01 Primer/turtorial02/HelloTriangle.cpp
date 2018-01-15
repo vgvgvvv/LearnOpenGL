@@ -10,7 +10,6 @@
 #include "OpenGLHelper.hpp"
 
 // GLEW
-#define GLEW_STATIC
 
 using namespace ReOpenGL;
 
@@ -63,9 +62,9 @@ int main(){
 
     //解绑
     // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
-    glBindBuffer(GL_ARRAY_BUFFER, NULL); 
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
      // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
-    glBindVertexArray(NULL);
+    glBindVertexArray(0);
 
     // Game loop
     while (!glfwWindowShouldClose(window.getWindow()))
@@ -83,7 +82,7 @@ int main(){
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(NULL);
+        glBindVertexArray(0);
 
         // Swap the screen buffers
         glfwSwapBuffers(window.getWindow());
