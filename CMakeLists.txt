@@ -1,7 +1,7 @@
 PROJECT("LearningOpenGL")
 
 cmake_minimum_required(VERSION 3.5)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -D_GLIBCXX_USE_NANOSLEEP -g -std=c++0x")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -D_GLIBCXX_USE_NANOSLEEP -g -std=c++0x -lboost_thread")
 set(CMAKE_CXX_STANDARD  11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -29,7 +29,9 @@ file(GLOB_RECURSE opengl_helper_script
 #通用C++组件
 file(GLOB_RECURSE common_script
 		Common/*.cpp
-		Common/*.hpp)
+		Common/*.hpp
+		Common/Utility/*.cpp
+		Common/Utility/*.hpp)
 
 #游戏引擎底层
 file(GLOB_RECURSE game_system_script

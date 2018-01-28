@@ -6,8 +6,10 @@
 #define LEARNINGOPENGL_INPUTSYSTEM_HPP
 
 
+#include <Systems/System.hpp>
+
 namespace ReEngine{
-    class InputSystem {
+    class InputSystem : public System {
         //TODO 输入模块
     };
 }

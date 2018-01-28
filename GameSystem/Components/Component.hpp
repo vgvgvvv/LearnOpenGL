@@ -10,7 +10,11 @@
 
 namespace ReEngine{
     class Component {
-
+    public:
+        virtual void Awake() = 0;
+        virtual void Init() = 0;
+        virtual void Update() = 0;
+        virtual void UnInit() = 0;
     };
 
 }

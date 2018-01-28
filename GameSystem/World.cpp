@@ -7,18 +7,21 @@
 #include "Utility/Utility.hpp"
 #include "World.hpp"
 #include "Systems/RenderSystem/OpenGLRenderSystem.hpp"
-#include "Utility/ObjectPool.hpp"
+#include "Utility/Alloc.hpp"
 #include "unistd.h"
 
 namespace ReEngine{
 
     World::World() {
+        gameObjectSystem = NEW_OBJECT(GameObjectSystem);
+        systemVector.push_back(gameObjectSystem);
         renderSystem = NEW_OBJECT(OpenGLRenderSystem);
         systemVector.push_back(renderSystem);
     }
 
     World::~World() {
         DELETE_OBJECT(renderSystem);
+        DELETE_OBJECT(gameObjectSystem);
     }
 
     bool World::Init() {
@@ -48,7 +51,7 @@ namespace ReEngine{
             curTime = Time::GetCurrentTime();
             if (curTime - lastTime < Time::GetDelayTime())
             {
-                std::this_thread::sleep_for(std::chrono::nanoseconds((Time::GetDelayTime() - curTime + lastTime) * 1000));
+                boost::this_thread::sleep_for(boost::chrono::nanoseconds((Time::GetDelayTime() - curTime + lastTime) * 1000));
             }
         }
         this->Uninit();

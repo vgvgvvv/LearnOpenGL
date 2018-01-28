@@ -12,6 +12,8 @@
 #include "Systems/System.hpp"
 #include "GameObjects/GameObject.hpp"
 #include "Systems/RenderSystem/RenderSystem.hpp"
+#include "Systems/GameObjectSystem/GameObjectSystem.hpp"
+#include <boost/thread.hpp>
 
 namespace ReEngine{
     class World : public Singleton<World>{
@@ -25,9 +27,9 @@ namespace ReEngine{
         bool ShouldQuit();
     private:
         std::vector<System*> systemVector;
-        std::vector<GameObject> gameObjectPool;
 
     private:
+        GameObjectSystem* gameObjectSystem;
         RenderSystem* renderSystem;
     };
 }

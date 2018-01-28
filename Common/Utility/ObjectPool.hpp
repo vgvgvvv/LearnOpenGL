@@ -1,20 +1,26 @@
 //
-// Created by 董宸 on 07/01/2018.
+// Created by 董宸 on 19/01/2018.
 //
 
 #ifndef LEARNINGOPENGL_OBJECTPOOL_HPP
 #define LEARNINGOPENGL_OBJECTPOOL_HPP
 
-#define NEW_OBJECT(obj) \
-        new obj();
-#define NEW_OBJECT1(obj, arg1) \
-        new obj(arg1);
-#define NEW_OBJECT2(obj, arg1, arg2) \
-        new obj(arg1, arg2);
+#include <stack>
+#include "IReusable.hpp"
+
+namespace ReEngine{
+    //TODO 对象池
+    template <typename T, typename... TArgs>
+    class ObjectPool<T(TArgs...)> {
+
+    public:
+        T Get(TArgs... args);
+        void Return(T obj);
+    private:
+        std::stack<T> pool;
+    };
+}
 
 
-
-#define DELETE_OBJECT(obj) \
-        delete obj;
 
 #endif //LEARNINGOPENGL_OBJECTPOOL_HPP
