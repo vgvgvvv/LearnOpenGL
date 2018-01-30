@@ -6,7 +6,7 @@
 #define LEARNINGOPENGL_MESHRENDERER_HPP
 
 
-#include "GLMesh.hpp"
+#include "GLOldMesh.hpp"
 #include "GLShader.hpp"
 
 namespace ReOpenGL{
@@ -15,7 +15,7 @@ namespace ReOpenGL{
     public:
         void Render();
     private:
-        GLMesh mesh;
+        GLOldMesh mesh;
         GLShader shader;
     };
 }

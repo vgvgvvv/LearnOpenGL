@@ -5,7 +5,9 @@
 #ifndef LEARNINGOPENGL_GLMATRIAL_HPP
 #define LEARNINGOPENGL_GLMATRIAL_HPP
 
+#include <vector>
 #include "GLShader.hpp"
+#include "GLTexture.hpp"
 
 namespace ReOpenGL{
     //TODO 封装Matrial！！！
@@ -13,6 +15,7 @@ namespace ReOpenGL{
     public:
 
     private:
+        std::vector<GLTexture> textures;
         GLShader shader;
     };
 }

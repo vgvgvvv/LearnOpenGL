@@ -9,6 +9,7 @@
 #include "GLWindow.hpp"
 #include "GLShader.hpp"
 #include "GLTexture.hpp"
+#include "GLOldMesh.hpp"
 #include "GLMesh.hpp"
 #include "MeshRenderer.hpp"
 #include "GLMatrial.hpp"

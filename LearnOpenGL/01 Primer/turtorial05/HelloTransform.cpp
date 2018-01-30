@@ -28,7 +28,7 @@ int main(){
             1, 2, 3  // second triangle
     };
 
-    GLMesh mesh(vertices, 4, indices, 2);
+    GLOldMesh mesh(vertices, 4, indices, 2);
     mesh.AddVertexProperty(3, "aPos", GL_FLOAT, GL_FALSE);
     mesh.AddVertexProperty(3, "aColor", GL_FLOAT, GL_FALSE);
     mesh.AddVertexProperty(2, "aTexCoord", GL_FLOAT, GL_FALSE);

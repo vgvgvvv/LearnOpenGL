@@ -74,7 +74,7 @@ int main(){
             glm::vec3(-1.3f,  1.0f, -1.5f)
     };
 
-    GLMesh mesh(vertices, 36, nullptr, 0);
+    GLOldMesh mesh(vertices, 36, nullptr, 0);
     mesh.AddVertexProperty(3, "aPos", GL_FLOAT, GL_FALSE);
     mesh.AddVertexProperty(2, "aTexCoord", GL_FLOAT, GL_FALSE);
     mesh.Build();

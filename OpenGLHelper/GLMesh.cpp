@@ -1,99 +1,73 @@
 //
-// Created by 董宸 on 07/01/2018.
+// Created by 董宸 on 30/01/2018.
 //
 
+#include <iostream>
+#include <sstream>
 #include "GLMesh.hpp"
 
 namespace ReOpenGL{
 
-    GLMesh::GLMesh(GLfloat* vertices, GLint vertexNumber, GLuint indices[], GLint indicesNumber) :
-        VAO_ID(0),
-        VBO_ID(0),
-        EBO_ID(0),
-        vertices(vertices),
-        vertexNumber(vertexNumber),
-        vertexSize(0),
-        indices(indices),
-        indicesNumber(indicesNumber),
-        drawType(GL_STATIC_DRAW)
-    {
+    GLMesh::GLMesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures) {
+        this->vertices = vertices;
+        this->indices = indices;
+        this->textures = textures;
+
+        SetupMesh();
     }
 
-    GLMesh::~GLMesh() {
+    void GLMesh::Draw(GLShader shader) {
+        unsigned int diffuseNr = 1;
+        unsigned int specularNr = 1;
+        for(unsigned int i = 0; i < textures.size(); i++)
+        {
+            glActiveTexture(GL_TEXTURE0 + i); // 在绑定之前激活相应的纹理单元
+            // 获取纹理序号（diffuse_textureN 中的 N）
+            std::stringstream ss;
+            std::string number;
+            std::string name = textures[i].type;
+            if(name == "texture_diffuse")
+                ss << diffuseNr++; // 将 unsigned int 插入到流中
+            else if(name == "texture_specular")
+                ss << specularNr++; // 将 unsigned int 插入到流中
+            number = ss.str();
 
-    }
-
-    void GLMesh::Build() {
-        glGenVertexArrays(1, &VAO_ID);
-        glGenBuffers(1, &VBO_ID);
-        if(indicesNumber != 0 && indices != nullptr){
-            glGenBuffers(1, &EBO_ID);
+            shader.SetFloat(("material." + name + number).c_str(), i);
+            glBindTexture(GL_TEXTURE_2D, textures[i].id);
         }
+        glActiveTexture(GL_TEXTURE0);
 
-        glBindVertexArray(VAO_ID);
-
-        //确定尺寸
-        vertexSize = 0;
-        for(auto attr : vertexAttrVec){
-            vertexSize += attr.size;
-        }
-
-        glBindBuffer(GL_ARRAY_BUFFER, VBO_ID);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vertexNumber * vertexSize, vertices, drawType);
-        if(indicesNumber != 0 && indices != nullptr) {
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO_ID);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indicesNumber * 3, indices, drawType);
-        }
-        //添加属性
-        GLuint index = 0;
-        int offset = 0;
-        int typeSize = sizeof(GLfloat);
-        for(auto attr : vertexAttrVec){
-            glVertexAttribPointer(index, attr.size, attr.type, attr.normalized, vertexSize * typeSize, (void*)offset);
-            glEnableVertexAttribArray(index);
-            index ++;
-            offset += attr.size * typeSize;
-        }
-        //解绑
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        // 绘制网格
+        glBindVertexArray(VAO);
+        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
 
-    void GLMesh::Uninit() {
-        glDeleteVertexArrays(1, &VAO_ID);
-        glDeleteBuffers(1, &VBO_ID);
-        glDeleteBuffers(1, &EBO_ID);
-    }
+    void GLMesh::SetupMesh() {
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBO);
+        glGenBuffers(1, &EBO);
 
-    void GLMesh::AddVertexProperty(GLint size, std::string name, GLenum type, GLboolean normalized) {
+        glBindVertexArray(VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-        GLVertexAttribute attribute;
-        attribute.name = name;
-        attribute.type = type;
-        attribute.size = size;
-        attribute.normalized = normalized;
-        vertexAttrVec.push_back(attribute);
-    }
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
-    void GLMesh::Render(GLenum renderType, GLboolean drawElement) {
-        glBindVertexArray(VAO_ID);
-        if(drawElement && indicesNumber != 0 && indices != nullptr){
-            glDrawElements(renderType, indicesNumber * 3, GL_UNSIGNED_INT, nullptr);
-        }else{
-            glDrawArrays(renderType, 0, vertexNumber);
-        }
-    }
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint),
+                     &indices[0], GL_STATIC_DRAW);
 
-    GLuint GLMesh::getVAO_ID() const {
-        return VAO_ID;
-    }
+        // 顶点位置
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+        // 顶点法线
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+        // 顶点纹理坐标
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 
-    GLuint GLMesh::getVBO_ID() const {
-        return VBO_ID;
-    }
-
-    GLuint GLMesh::getEBO_ID() const {
-        return EBO_ID;
+        glBindVertexArray(0);
     }
 
 }
