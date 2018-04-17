@@ -9,16 +9,16 @@
 #include "IReusable.hpp"
 
 namespace ReEngine{
-    //TODO 对象池
-    template <typename T, typename... TArgs>
-    class ObjectPool<T(TArgs...)> {
-
-    public:
-        T Get(TArgs... args);
-        void Return(T obj);
-    private:
-        std::stack<T> pool;
-    };
+//    //TODO 对象池
+//    template <typename T, typename... TArgs>
+//    class ObjectPool<T(TArgs...)> {
+//
+//    public:
+//        T Get(TArgs... args);
+//        void Return(T obj);
+//    private:
+//        std::stack<T> pool;
+//    };
 }
 
 

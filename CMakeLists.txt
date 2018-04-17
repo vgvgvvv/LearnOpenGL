@@ -1,7 +1,7 @@
 PROJECT("LearningOpenGL")
 
 cmake_minimum_required(VERSION 3.5)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -D_GLIBCXX_USE_NANOSLEEP -g -std=c++0x -lboost_thread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -D_GLIBCXX_USE_NANOSLEEP -g -std=c++0x")
 set(CMAKE_CXX_STANDARD  11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -51,6 +51,7 @@ set(ALL_LIBS
 		glfw
 		GLEW_1130
 		STB
+        Assimp
 )
 
 add_definitions(

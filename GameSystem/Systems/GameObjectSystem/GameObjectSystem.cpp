@@ -9,7 +9,7 @@
 namespace ReEngine{
 
     bool GameObjectSystem::Init() {
-        return false;
+        return true;
     }
 
     void GameObjectSystem::Update() {

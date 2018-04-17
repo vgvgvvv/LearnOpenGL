@@ -8,7 +8,6 @@
 #include "World.hpp"
 #include "Systems/RenderSystem/OpenGLRenderSystem.hpp"
 #include "Utility/Alloc.hpp"
-#include "unistd.h"
 
 namespace ReEngine{
 
@@ -36,6 +35,7 @@ namespace ReEngine{
 
     void World::Run() {
         if(!this->Init()){
+            assert(false);
             return;
         }
 
@@ -51,7 +51,7 @@ namespace ReEngine{
             curTime = Time::GetCurrentTime();
             if (curTime - lastTime < Time::GetDelayTime())
             {
-                boost::this_thread::sleep_for(boost::chrono::nanoseconds((Time::GetDelayTime() - curTime + lastTime) * 1000));
+                std::this_thread::sleep_for(std::chrono::nanoseconds((Time::GetDelayTime() - curTime + lastTime) * 1000));
             }
         }
         this->Uninit();

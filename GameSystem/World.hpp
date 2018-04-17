@@ -13,7 +13,6 @@
 #include "GameObjects/GameObject.hpp"
 #include "Systems/RenderSystem/RenderSystem.hpp"
 #include "Systems/GameObjectSystem/GameObjectSystem.hpp"
-#include <boost/thread.hpp>
 
 namespace ReEngine{
     class World : public Singleton<World>{

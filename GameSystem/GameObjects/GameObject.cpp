@@ -20,4 +20,24 @@ namespace ReEngine{
         return this;
     }
 
+    template<typename T>
+    bool GameObject::HasComponent() {
+        return false;
+    }
+
+    void GameObject::Awake() {
+
+    }
+
+    void GameObject::Start() {
+
+    }
+
+    void GameObject::Update() {
+
+    }
+
+    void GameObject::OnDestroy() {
+
+    }
 }
