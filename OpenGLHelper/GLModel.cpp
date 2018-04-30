@@ -5,10 +5,16 @@
 #include <vector>
 #include <assimp/material.h>
 #include "GLModel.hpp"
+#include "GLTexture.hpp"
 
 namespace ReOpenGL{
+    /**
+     * 绘制
+     * @param shader
+     */
     void GLModel::Draw(GLShader shader) {
-
+        for(unsigned int i = 0; i < meshes.size(); i++)
+            meshes[i].Draw(shader);
     }
 
     void GLModel::loadModel(std::string path) {
@@ -47,21 +53,61 @@ namespace ReOpenGL{
         for(unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
             Vertex vertex;
-            // 处理顶点位置、法线和纹理坐标
-//            ...
+
+            glm::vec3 position;
+            position.x = mesh->mVertices[i].x;
+            position.y = mesh->mVertices[i].y;
+            position.z = mesh->mVertices[i].z;
+            vertex.Position = position;
+
+            glm::vec3 normal;
+            normal.x = mesh->mNormals[i].y;
+            normal.y = mesh->mNormals[i].y;
+            normal.y = mesh->mNormals[i].y;
+            vertex.Normal = normal;
+
+            if(mesh->mTextureCoords[0]){
+                glm::vec2 texcoord;
+                texcoord.x = mesh->mTextureCoords[0][i].x;
+                texcoord.y = mesh->mTextureCoords[0][i].y;
+                vertex.TexCoords = texcoord;
+            }else{
+                vertex.TexCoords = glm::vec2(0, 0);
+            }
+
             vertices.push_back(vertex);
         }
         // 处理索引
-//        ...
+        for(unsigned int i = 0; i < mesh->mNumFaces; i++){
+            aiFace face = mesh->mFaces[i];
+            for(unsigned int j = 0; j < face.mNumIndices; j++)
+                indices.push_back(face.mIndices[j]);
+        }
         // 处理材质
         if(mesh->mMaterialIndex >= 0)
         {
-//            ...
+            aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+            std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+            textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+            std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+            textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
         }
 
     }
 
     std::vector<Texture> GLModel::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName) {
-        return std::vector<Texture>();
+        std::vector<Texture> textures;
+        for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+        {
+            aiString str;
+            mat->GetTexture(type, i, &str);
+            GLTexture glTexture(directory + '/' + str.C_Str());
+            Texture texture;
+            texture.id =  glTexture.getTexID();
+            texture.type = typeName;
+            texture.path = str.C_Str();
+            textures.push_back(texture);
+        }
+        return textures;
     }
 }

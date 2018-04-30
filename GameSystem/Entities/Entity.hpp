@@ -11,21 +11,19 @@
 #include <Components/Component.hpp>
 #include <Utility/IReusable.hpp>
 #include <vector>
-#include "Transform.hpp"
+#include <string>
+#include "Components/Transform.hpp"
 
 namespace ReEngine{
 
-    class GameObject;
-    typedef GameObject* GameObjectPtr;
-    class GameObject {
+    class Entity;
+    typedef Entity* EntityPtr;
+    class Entity {
     public:
 
-
-        template <typename T, typename... TArgs> auto AddComponent(TArgs&&... args)->GameObjectPtr;
-        template <typename T> auto RemoveComponent() -> GameObjectPtr;
-        template<typename T> bool HasComponent();
-
-        Transform Transfrom();
+        EntityPtr AddComponent(const Component& component);
+        EntityPtr RemoveComponent(std::string name);
+        bool HasComponent(std::string name);
 
     protected:
         virtual void Awake();
@@ -33,7 +31,7 @@ namespace ReEngine{
         virtual void Update();
         virtual void OnDestroy();
     private:
-        std::vector<Component*> components;
+        std::vector<Component&> components;
         Transform transform;
     };
 }

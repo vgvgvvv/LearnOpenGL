@@ -19,6 +19,7 @@ namespace ReOpenGL{
     public:
 
         GLTexture(const char* texturePath);
+        GLTexture(const std::string texturePath);
 
         ~GLTexture();
 

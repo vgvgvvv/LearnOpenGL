@@ -10,9 +10,9 @@
 #include <vector>
 #include <Utility/Singleton.hpp>
 #include "Systems/System.hpp"
-#include "GameObjects/GameObject.hpp"
+#include "GameObjects/Entity.hpp"
 #include "Systems/RenderSystem/RenderSystem.hpp"
-#include "Systems/GameObjectSystem/GameObjectSystem.hpp"
+#include "Systems/GameObjectSystem/EntitySystem.hpp"
 
 namespace ReEngine{
     class World : public Singleton<World>{

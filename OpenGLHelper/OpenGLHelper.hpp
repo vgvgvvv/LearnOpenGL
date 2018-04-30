@@ -13,5 +13,6 @@
 #include "GLMesh.hpp"
 #include "MeshRenderer.hpp"
 #include "GLMatrial.hpp"
+#include "GLModel.hpp"
 
 #endif //LEARNINGOPENGL_OPENGLHELPER_HPP

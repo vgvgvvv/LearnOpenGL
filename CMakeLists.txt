@@ -1,7 +1,7 @@
 PROJECT("LearningOpenGL")
 
 cmake_minimum_required(VERSION 3.5)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -D_GLIBCXX_USE_NANOSLEEP -g -std=c++0x")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -D_GLIBCXX_USE_NANOSLEEP -g")
 set(CMAKE_CXX_STANDARD  11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -142,3 +142,11 @@ add_executable(HelloCamera
 target_link_libraries(HelloCamera
 		${ALL_LIBS}
 		)
+
+#模型加载
+add_executable(HelloModel
+        "LearnOpenGL/03 Model/TestModel/HelloModel.cpp"
+        ${All_Scripts})
+target_link_libraries(HelloModel
+        ${ALL_LIBS}
+        )

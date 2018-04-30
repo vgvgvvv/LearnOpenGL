@@ -12,15 +12,15 @@
 namespace ReEngine{
 
     World::World() {
-        gameObjectSystem = NEW_OBJECT(GameObjectSystem);
+        gameObjectSystem = new GameObjectSystem();
         systemVector.push_back(gameObjectSystem);
-        renderSystem = NEW_OBJECT(OpenGLRenderSystem);
+        renderSystem = new OpenGLRenderSystem();
         systemVector.push_back(renderSystem);
     }
 
     World::~World() {
-        DELETE_OBJECT(renderSystem);
-        DELETE_OBJECT(gameObjectSystem);
+        delete renderSystem;
+        delete gameObjectSystem;
     }
 
     bool World::Init() {

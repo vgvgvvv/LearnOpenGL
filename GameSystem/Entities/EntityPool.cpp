@@ -3,12 +3,13 @@
 //
 
 #include <Utility/Alloc.hpp>
-#include "GameObjectPool.hpp"
+#include "EntityPool.hpp"
 
 namespace ReEngine{
-    GameObjectPtr GameObjectPool::GetObject() {
+    EntityPtr GameObjectPool::GetObject() {
         //TODO 暂时使用New 后面再使用池子
-        GameObjectPtr newObj = NEW_OBJECT(GameObject);
+        auto newObj = new Entity;
         return newObj;
     }
+
 }

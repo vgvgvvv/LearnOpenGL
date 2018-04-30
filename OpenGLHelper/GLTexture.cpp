@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <string>
 #include "GLTexture.hpp"
 
 namespace ReOpenGL{
@@ -19,6 +20,20 @@ namespace ReOpenGL{
         data(nullptr)
     {
         this->texturePath = texturePath;
+    }
+
+    GLTexture::GLTexture(const std::string texturePath) :
+            texID(0),
+            width(800),
+            height(600),
+            nrChannel(0),
+            wrapTypeS(GL_REPEAT),
+            wrapTypeT(GL_REPEAT),
+            minFilter(GL_LINEAR),
+            magFilter(GL_LINEAR),
+            data(nullptr)
+    {
+        this->texturePath = texturePath.c_str();
     }
 
     GLTexture::~GLTexture() {

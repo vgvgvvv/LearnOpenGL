@@ -5,14 +5,14 @@
 #ifndef LEARNINGOPENGL_GAMEOBJECTSYSTEM_HPP
 #define LEARNINGOPENGL_GAMEOBJECTSYSTEM_HPP
 
-#include <GameObjects/GameObject.hpp>
+#include <GameObjects/Entity.hpp>
 #include "Systems/System.hpp"
 namespace ReEngine{
     class GameObjectSystem : public System {
 
     public:
 
-        auto CreateGameObject() -> GameObjectPtr;
+        auto CreateGameObject() -> EntityPtr;
 
         bool Init() override;
 

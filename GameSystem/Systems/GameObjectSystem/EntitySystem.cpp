@@ -3,8 +3,8 @@
 //
 
 #include <memory>
-#include <GameObjects/GameObjectPool.hpp>
-#include "GameObjectSystem.hpp"
+#include <GameObjects/EntityPool.hpp>
+#include "EntitySystem.hpp"
 
 namespace ReEngine{
 
@@ -20,7 +20,7 @@ namespace ReEngine{
 
     }
 
-    auto GameObjectSystem::CreateGameObject() -> GameObjectPtr {
+    auto GameObjectSystem::CreateGameObject() -> EntityPtr {
         return GameObjectPool::GetObject();
     }
 }

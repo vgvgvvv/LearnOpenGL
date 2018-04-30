@@ -7,12 +7,12 @@
 
 
 #include <vector>
-#include "GameObject.hpp"
+#include "Entity.hpp"
 
 namespace ReEngine{
     class GameObjectPool {
     public:
-        static GameObjectPtr GetObject();
+        static EntityPtr GetObject();
     private:
 
     };

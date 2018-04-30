@@ -6,8 +6,7 @@
 #define LEARNINGOPENGL_MESHRENDERER_HPP
 
 
-#include "GLOldMesh.hpp"
-#include "GLShader.hpp"
+#include "OpenGLAllInOne.hpp"
 
 namespace ReOpenGL{
     //TODO 封装渲染器
@@ -15,7 +14,7 @@ namespace ReOpenGL{
     public:
         void Render();
     private:
-        GLOldMesh mesh;
+        GLMesh mesh;
         GLShader shader;
     };
 }

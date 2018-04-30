@@ -11,7 +11,7 @@ namespace ReEngine{
 
     bool OpenGLRenderSystem::Init() {
 
-        window =  NEW_OBJECT2(GLWindow, 800, 600);
+        window =  new GLWindow(800, 600);
         window->Show();
 
         return true;
@@ -34,7 +34,7 @@ namespace ReEngine{
 
     void OpenGLRenderSystem::Uninit() {
         glfwTerminate();
-        DELETE_OBJECT(window);
+        delete window;
     }
 
     bool OpenGLRenderSystem::GetShouldCloseWindow() {

@@ -2,8 +2,8 @@
 // Created by 董宸 on 07/01/2018.
 //
 
-#ifndef LEARNINGOPENGL_GLMESH_HPP
-#define LEARNINGOPENGL_GLMESH_HPP
+#ifndef LEARNINGOPENGL_GLOLDMESH_HPP
+#define LEARNINGOPENGL_GLOLDMESH_HPP
 
 #include "glew.h"
 #include "glfw3.h"
@@ -78,4 +78,4 @@ namespace ReOpenGL{
     };
 }
 
-#endif //LEARNINGOPENGL_GLMESH_HPP
+#endif //LEARNINGOPENGL_GLOLDMESH_HPP

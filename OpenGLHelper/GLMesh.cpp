@@ -2,9 +2,9 @@
 // Created by 董宸 on 30/01/2018.
 //
 
+#include "GLMesh.hpp"
 #include <iostream>
 #include <sstream>
-#include "GLMesh.hpp"
 
 namespace ReOpenGL{
 

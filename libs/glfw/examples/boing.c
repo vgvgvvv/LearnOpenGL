@@ -623,7 +623,7 @@ int main( void )
 {
    GLFWwindow* window;
 
-   /* Init GLFW */
+   /* Start GLFW */
    if( !glfwInit() )
       exit( EXIT_FAILURE );
 

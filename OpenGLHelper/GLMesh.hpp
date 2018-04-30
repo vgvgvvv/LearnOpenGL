@@ -22,6 +22,7 @@ namespace ReOpenGL{
     struct Texture {
         GLuint id;
         std::string type;
+        std::string path;
     };
 
     class GLMesh {

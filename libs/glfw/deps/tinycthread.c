@@ -145,7 +145,7 @@ int cnd_init(cnd_t *cond)
   /* Init critical section */
   InitializeCriticalSection(&cond->mWaitersCountLock);
 
-  /* Init events */
+  /* Start events */
   cond->mEvents[_CONDITION_EVENT_ONE] = CreateEvent(NULL, FALSE, FALSE, NULL);
   if (cond->mEvents[_CONDITION_EVENT_ONE] == NULL)
   {
