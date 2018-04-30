@@ -46,7 +46,7 @@ set(All_Scripts
 
 #所有库集合
 set(ALL_LIBS
-		${OPENGL_LIBRARY}
+#		${OPENGL_LIBRARY}
 		${STB}
 		glfw
 		GLEW_1130

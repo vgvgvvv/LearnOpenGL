@@ -10,7 +10,7 @@
 #include <vector>
 #include <Utility/Singleton.hpp>
 #include "Systems/System.hpp"
-#include "GameObjects/Entity.hpp"
+#include "Entities/Entity.hpp"
 #include "Systems/RenderSystem/RenderSystem.hpp"
 #include "Systems/GameObjectSystem/EntitySystem.hpp"
 

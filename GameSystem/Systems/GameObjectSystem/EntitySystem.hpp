@@ -5,7 +5,7 @@
 #ifndef LEARNINGOPENGL_GAMEOBJECTSYSTEM_HPP
 #define LEARNINGOPENGL_GAMEOBJECTSYSTEM_HPP
 
-#include <GameObjects/Entity.hpp>
+#include <Entities/Entity.hpp>
 #include "Systems/System.hpp"
 namespace ReEngine{
     class GameObjectSystem : public System {

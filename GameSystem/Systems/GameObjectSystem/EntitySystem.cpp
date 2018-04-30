@@ -3,7 +3,7 @@
 //
 
 #include <memory>
-#include <GameObjects/EntityPool.hpp>
+#include <Entities/EntityPool.hpp>
 #include "EntitySystem.hpp"
 
 namespace ReEngine{

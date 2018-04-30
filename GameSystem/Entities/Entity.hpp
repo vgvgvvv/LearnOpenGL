@@ -21,7 +21,7 @@ namespace ReEngine{
     class Entity {
     public:
 
-        EntityPtr AddComponent(const Component& component);
+        EntityPtr AddComponent(Component* component);
         EntityPtr RemoveComponent(std::string name);
         bool HasComponent(std::string name);
 
@@ -31,7 +31,7 @@ namespace ReEngine{
         virtual void Update();
         virtual void OnDestroy();
     private:
-        std::vector<Component&> components;
+        std::vector<Component*> components;
         Transform transform;
     };
 }
